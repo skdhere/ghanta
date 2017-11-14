@@ -7,14 +7,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Collect</ion-title>
+    <ion-title>Collect
+
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="submit(data);" icon-only><ion-icon name="md-checkmark"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
- <form (ngSubmit)="login(data)" #registerForm="ngForm">
+
+ <form (ngSubmit)="submit(data)" #registerForm="ngForm">
 <ion-list no-lines padding-top>
      
         <ion-item>
@@ -38,21 +44,23 @@
         </ion-col>
       </ion-row>
 
-     
+<ion-list radio-group>
       <ion-row>
       	  <ion-col col-6>
       	    <ion-item>
-		          <ion-radio type="radio" checked  required></ion-radio>
+		          <ion-radio  checked value="a" name="type111" ></ion-radio>
       		    <ion-label>Morning</ion-label>
            </ion-item>
          </ion-col>
       		<ion-col col-6>
             <ion-item>
-    		      <ion-radio type="radio"  required></ion-radio>
+    		      <ion-radio  value="b" name="type111"  ></ion-radio>
               <ion-label>Evening</ion-label>
     		    </ion-item>
          </ion-col>
   		</ion-row>
+</ion-list>
+
 
 
      <ion-row> 
@@ -66,11 +74,12 @@
 
     </ion-list>
    
-      <button ion-button block round  (click)="submit(data);" color="secondary"  [disabled]="!registerForm.form.valid">Submit</button>
+      <button ion-button block round   color="secondary"  [disabled]="!registerForm.form.valid">Submit</button>
+
       </form>
   <!--   <div padding>
       <button ion-button block color="light" clear (click)="loginPage();">If already have an account ? LOGIN</button>
 
       <button ion-button block color="light" clear (click)="forgotPasswordPage();">Forgot Password</button>
-   </div> -->
+   </div> --> 
 </ion-content>

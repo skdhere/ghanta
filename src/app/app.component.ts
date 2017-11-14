@@ -41,6 +41,9 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Dashbaord',icon:'home', component: 'Dashboard' },
+      { title: 'Logout',icon:'lock', component: 'UserLogin' },
+      { title: 'Add Members',icon:'lock', component: 'ReportPage' },
+      { title: 'Setting',icon:'lock', component: 'UploadPage' },
       { title: 'Logout',icon:'lock', component: 'UserLogin' }
     ];
   }

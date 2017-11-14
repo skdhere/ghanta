@@ -21,7 +21,7 @@ export class CollectPage {
   data:any;
   today:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,private barcodeScanner: BarcodeScanner,public http:Http,public loadingCtrl: LoadingController,private datePicker: DatePicker) {
-  	this.data = {mobile:'',name:'',amount:'',date:''};
+  	this.data = {mobile:'',name:'',amount:'',date:'',type111:''};
     this.today = new Date().toISOString();
   }
 
@@ -64,6 +64,10 @@ export class CollectPage {
   }
   
   submit(data) {
+
+    console.log(this.today);
+    this.data = {date:this.today};
+    console.log(data);
   		let loader = this.loadingCtrl.create({
 	      content: "Please wait...",
 	      duration: 3000
@@ -75,8 +79,11 @@ export class CollectPage {
         this.http.post(link, data)
         .subscribe(data => {
             this.data.response = data;
+             this.navCtrl.setRoot('Dashboard');
         }, error => {
             console.log("Oooops!");
+
+            this.navCtrl.setRoot('Dashboard');
         });
     }
 
