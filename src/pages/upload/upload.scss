@@ -1,0 +1,33 @@
+page-upload {
+ion-content{
+        background-color:color($colors,primary);
+         background-image:url('../assets/images/bg.png');
+         background-size:100% auto;
+          .active
+      	  {
+      	  	background-color: #16AF54 !important;
+      	  }
+          .inactive
+      	  {
+      	  	background-color: #ea878d !important;
+      	  }
+          ion-card{
+      	
+      	padding: 15px;
+      	color: #fff !important;
+
+      	 
+         .fleft
+         {
+         	float: right;
+         }
+
+      	 h3
+      	 {
+      	 	font-size: 17px !important;
+		   color: #fff !important;
+      	 }
+
+      }
+      }
+}

@@ -1,0 +1,76 @@
+<!--
+  Generated template for the CollectPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Collect</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+ <form (ngSubmit)="login(data)" #registerForm="ngForm">
+<ion-list no-lines padding-top>
+     
+        <ion-item>
+        	<!-- <ion-input (click)="getDate();" type="text" value="AM" [(ngModel)]="data.date" name="date" placeholder="Date" required readonly></ion-input> -->
+          <ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="today" name="today"></ion-datetime>
+        </ion-item>
+
+       <ion-row>
+      	  <ion-col col-8>
+      	    <ion-item>
+      	        <ion-input type="text" [(ngModel)]="data.mobile" name="mobile" placeholder="Mobile Number"></ion-input>
+      	    </ion-item>
+		      </ion-col>
+      		<ion-col col-4><button type="button" ion-button block round (click)="scanBarcode();"  color="secondary" clear required>Scan</button></ion-col>
+  		</ion-row>
+      <ion-row> 
+        <ion-col>
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="data.name" name="name"  placeholder="Name" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+     
+      <ion-row>
+      	  <ion-col col-6>
+      	    <ion-item>
+		          <ion-radio type="radio" checked  required></ion-radio>
+      		    <ion-label>Morning</ion-label>
+           </ion-item>
+         </ion-col>
+      		<ion-col col-6>
+            <ion-item>
+    		      <ion-radio type="radio"  required></ion-radio>
+              <ion-label>Evening</ion-label>
+    		    </ion-item>
+         </ion-col>
+  		</ion-row>
+
+
+     <ion-row> 
+        <ion-col>
+          <ion-item>
+            <ion-input type="number" value="AM" [(ngModel)]="data.amount" min=10 name="amount" placeholder="Amount" required></ion-input>
+          </ion-item>
+         </ion-col>
+      </ion-row>
+
+
+    </ion-list>
+   
+      <button ion-button block round  (click)="submit(data);" color="secondary"  [disabled]="!registerForm.form.valid">Submit</button>
+      </form>
+  <!--   <div padding>
+      <button ion-button block color="light" clear (click)="loginPage();">If already have an account ? LOGIN</button>
+
+      <button ion-button block color="light" clear (click)="forgotPasswordPage();">Forgot Password</button>
+   </div> -->
+</ion-content>
