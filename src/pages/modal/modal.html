@@ -1,0 +1,60 @@
+<ion-header >
+  <ion-navbar  hideBackButton="true">
+    <ion-buttons end>
+     <button ion-button icon-right color="light" (click)="closeModal();" >Cancel<ion-icon name="ios-arrow-forward"></ion-icon></button>
+   </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+	 <form [formGroup]="collect"  #registerForm="ngForm">
+      <ion-list no-lines padding-top inset>
+     
+        <ion-item>
+        	<ion-datetime displayFormat="DD-MM-YYYY" formControlName="fdate" name="today"></ion-datetime>
+        </ion-item>
+
+       <!-- <ion-row>
+      	  <ion-col col-8> -->
+      	  	
+      	    <ion-item>
+                <ion-label floating>Mobile Number</ion-label>
+      	        <ion-input type="text"  formControlName="fmobile" interface="popover" name="mobile" placeholder="" readonly>
+      	        </ion-input>
+
+      	    </ion-item>
+		     
+          <ion-item>
+            <ion-label floating>Name</ion-label>
+            <ion-input type="text" interface="popover"  formControlName="fname" name="name"  placeholder="" readonly></ion-input>
+          </ion-item>
+      
+
+		<ion-item>
+            <ion-label floating>Amount</ion-label>
+            <ion-input interface="popover" type="number"  formControlName="famount"  name="amount"></ion-input>
+          </ion-item>
+        
+
+
+       
+          <ion-item>
+            <ion-label floating>Comment</ion-label>
+            <ion-input interface="popover" type="text"  formControlName="fcomment" name="name"></ion-input>
+          </ion-item>
+        
+
+    </ion-list>
+      
+
+ </form>
+   
+   
+    <button ion-button block round color="secondary" (click)="save();">Save</button>
+
+    <!-- <div padding-top>
+    <button ion-button block color="light" clear (click)="loginPage();">If already have an account ? LOGIN</button>
+    <button ion-button block color="light" clear (click)="signupPage();">If new member ? SIGNUP</button>
+   </div> -->
+
+</ion-content>

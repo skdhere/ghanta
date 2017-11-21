@@ -23,7 +23,8 @@ export class Dashboard {
 
   collect()
   {
-  	this.navCtrl.push('CollectPage');
+  	// this.navCtrl.push('CollectPage');
+    this.navCtrl.push('UserlistPage');
   }
 
   report()

@@ -15,25 +15,41 @@
 
 
 <ion-content>
-      <ion-card  class="active">
-	  <ion-icon name="person"></ion-icon>
-	  <span>&nbsp;&nbsp;&nbsp;Satish</span>
-	   <span class="fleft">&nbsp;&nbsp;&nbsp;Rs 70000/- &nbsp;&nbsp;<ion-icon (click)="uploadData();" name="arrow-up"></ion-icon></span>
-	  </ion-card>
-	  <ion-card class="active">
-	   <ion-icon name="person"></ion-icon> 
-	   <span >&nbsp;&nbsp;&nbsp;Sandip</span>
-	   <span class="fleft">&nbsp;&nbsp;&nbsp;Rs 50000/-&nbsp;&nbsp; <ion-icon (click)="uploadData();" name="arrow-up"></ion-icon></span>
-	  </ion-card>
-	  <ion-card  class="active">
-	  <ion-icon name="person"></ion-icon>
-	  <span>&nbsp;&nbsp;&nbsp;Prathmesh</span>
-	  <span class="fleft">&nbsp;&nbsp;&nbsp;Rs 30000/- &nbsp;&nbsp;<ion-icon (click)="uploadData();" name="arrow-up"></ion-icon></span>
-	  </ion-card>
+	<div style="margin-top: 20px;">
+	<!--   <ion-card >
+	  <ion-icon name="person"> &nbsp;{{result.name}}</ion-icon>
+	  <span>&nbsp;&nbsp;&nbsp;</span>
+	   <span class="fleft">&nbsp;&nbsp;&nbsp;Rs {{result.amount}}/- &nbsp;&nbsp;<ion-icon (click)="uploadData(result.id);" name="arrow-up"></ion-icon></span>
+	  </ion-card> -->
+	  	<ion-card class="active" *ngFor="let result of results" >
+		  <small class="fleft">1-1-2017</small>
+		  <ion-card-content>
 
+		    <ion-card-title>
+		      {{result.name}}<span class="fleft">Rs. {{result.amount}} -/
+		      						</span>
+		      </ion-card-title>
+		    <p>
+		    	<ion-row>
+		      	  <ion-col col-4> 
+		            <span class="" (click)="deleteRecord(result.id);" style="float: left"> <ion-icon name="trash"></ion-icon></span> 
+		      	  </ion-col> 
+		      	  <ion-col col-4 text-center>  
+					<span text-center (click)="viewRecord(result.id);"> &nbsp;&nbsp;<ion-icon name="eye"></ion-icon></span> 
+				 </ion-col>
+				  <ion-col col-4> 
+				    <span item-center style="float: right"> <ion-icon name="arrow-up"></ion-icon></span> 
+				  </ion-col>
+				</ion-row>
 
-	   <ion-row style="position:fixed; bottom:0px;width:100%">
-   
-      <button ion-button ion-button color="secondary" style="width:100%; background-color: #32DB64"><ion-icon (click)="uploadData();" name="arrow-up"></ion-icon>&nbsp;&nbsp;Upload All</button>
-    </ion-row>
+		    </p>
+		  </ion-card-content>
+		</ion-card>
+	 
+	  
+	    
+</div>
+	   <ion-fab top right edge color="light">
+           <button (click)="save()" ion-fab><ion-icon name="arrow-up"></ion-icon></button>
+      </ion-fab>
 </ion-content>

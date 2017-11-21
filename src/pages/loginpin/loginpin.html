@@ -1,0 +1,37 @@
+<ion-header >
+  <ion-navbar  hideBackButton="true">
+  	<ion-title text-center>{{page_title}}</ion-title>
+   <!--  <ion-buttons end>
+     <button ion-button icon-right color="light" (click)="dashboardPage()">SKIP<ion-icon name="ios-arrow-forward"></ion-icon></button>
+   </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+  <div text-center><img src="assets/images/forgotpwd.png" width="100" ></div>
+  <div *ngIf="!isSetPin">
+ <form [formGroup]="collect"  #registerForm="ngForm">
+ 	
+    <ion-list no-lines padding-top>
+      <ion-item>
+        <ion-input  formControlName="pin" name="pin"  type="password" placeholder="Enter Pin"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input  formControlName="cpin" name="cpin" required type="password" placeholder="Confirm Pin"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button  type="button" (click)="setPin();"  ion-button block round color="secondary">Set Pin</button>
+   
+  
+</form>
+</div>
+   <div *ngIf="isSetPin">
+    <ion-list no-lines padding-top>
+      <ion-item>
+        <ion-input  [(ngModel)]="lpin" name="lpin"  type="password" placeholder="Enter Pin"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button  type="button" (click)="login(lpin)"  ion-button block round color="secondary">Login</button>
+   </div>
+
+</ion-content>

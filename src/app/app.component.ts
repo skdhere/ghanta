@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav } from 'ionic-angular';
-
-
+import { Platform, MenuController, Nav, AlertController } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 
 
@@ -10,57 +10,150 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 @Component({
-  templateUrl: 'app.html'
+    templateUrl: 'app.html'
 })
 export class MyApp {
-  @ViewChild(Nav) nav: Nav;
+    @ViewChild(Nav) nav: Nav;
 
-  // make HelloIonicPage the root (or first) page
-  rootPage = 'UserLogin';
-  pages: Array<{title: string,icon:string, component: any}>;
+    // make HelloIonicPage the root (or first) page
+    rootPage = 'UserLogin';
+    pages: Array<{title: string,icon:string, component: any}>;
+    upages: Array<{title: string,icon:string, component: any}>;
 
-  constructor(
-    public platform: Platform,
-    public menu: MenuController,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen
-  ) {
-      this.statusBar.backgroundColorByHexString('red');
-      if ( this.platform.is('android') ) {
+
+    alert: any = null;
+    tprice:any;
+    constructor(
+                private alertCtrl: AlertController,
+                public platform: Platform,
+                public menu: MenuController,
+                public statusBar: StatusBar,
+                private network: Network,
+                private sqlite: SQLite,
+                public splashScreen: SplashScreen){
+
+        this.sqlite.create({
+                          name: 'data.db',
+                          location: 'default'
+                          })
+                          .then((db: SQLiteObject) => {
+
+                          //create table section
+                          db.executeSql('CREATE TABLE IF NOT EXISTS loginPin(id INTEGER PRIMARY KEY AUTOINCREMENT,pin,mobile)', {})
+                          .then(() => console.log('done'))
+                          .catch(e => console.log(e));
+
+                           db.executeSql('select * from loginPin ', {}).then((data) => {
+                            if(data.rows.length > 0) {
+                              this.rootPage='LoginpinPage';
+
+                          }
+
+                          }, (err) => {
+                          alert('Unable to execute sql: '+JSON.stringify(err));
+                          });
+                          })
+                          .catch(e => alert(JSON.stringify(e)));
+
+
+
+       this.tprice =6;
+       console.log(this.tprice);
         this.platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
-            // Splashscreen.hide();
-            this.statusBar.overlaysWebView(false);
-            this.statusBar.backgroundColorByHexString('#00FFFF');
-        });
-    }
+            // Here you can do any higher level native things you might need
 
-    this.initializeApp();
+            statusBar.styleDefault();
+            statusBar.overlaysWebView(true);
+            statusBar.backgroundColorByHexString("#33000000");
+            statusBar.styleBlackOpaque();
+
+            this.platform.registerBackButtonAction(() => {
+
+                let currentView = this.nav.getActive();
+
+                if(menu.isOpen()){
+                    menu.close();
+                }
+                else{
+
+                    if(currentView.component.name == 'Dashboard' || currentView.component.name == 'UserLogin' || currentView.component.name == 'LoginpinPage'){
+                        if(this.alert == null){
+                            this.alert = this.alertCtrl.create({
+                                title: 'Confirm',
+                                message: 'are you sure want to exit?',
+                                enableBackdropDismiss:false,
+                                buttons: [
+                                {
+                                    text: 'Cancel',
+                                    role: 'cancel',
+                                    handler: () => {
+                                        console.log('Cancel clicked');
+                                        this.alert = null;
+                                    }
+                                },
+                                {
+                                    text: 'Exit',
+                                    handler: () => {
+                                        this.platform.exitApp();
+                                    }
+                                }
+                                ]
+                            });
+
+                            this.alert.present();
+                            console.log(1212122);
+                        }
+                        else{
+                            this.alert.dismiss();
+                            this.alert = null;
+                        }
+
+                    }
+                    else{
+                        this.nav.pop();
+                    }
+                }
+
+            });
+        });
+
+
+       
+
+       // set inside pages
+    this.upages =[{ title: 'Member List',icon:'person', component: 'MembersPage' },
+      { title: 'Report',icon:'book', component: 'ReportPage' },
+      { title: 'Upload Data',icon:'arrow-up', component: 'UploadPage' },
+      { title: 'Logut',icon:'lock', component: 'LoginpinPage' }];
 
     // set our app's pages
     this.pages = [
-      { title: 'Dashbaord',icon:'home', component: 'Dashboard' },
-      { title: 'Logout',icon:'lock', component: 'UserLogin' },
-      { title: 'Add Members',icon:'lock', component: 'ReportPage' },
-      { title: 'Setting',icon:'lock', component: 'UploadPage' },
-      { title: 'Logout',icon:'lock', component: 'UserLogin' }
+      { title: 'Dashbaord',icon:'home', component: 'Dashboard' }
     ];
-  }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-  }
 
-  openPage(page) {
+    }
+
+    openPage(page) {
+        // close the menu when clicking a link from the menu
+        this.menu.close();
+        // navigate to the new page if it is not the current page
+        this.nav.setRoot(page.component);
+    }
+
+    openuPage(upage) {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
+    if(upage.component!="UserLogin")
+    {
+      this.nav.push(upage.component);
+
+    }
+    else{
+      this.nav.setRoot(upage.component);
+    }
+    
   }
 }
