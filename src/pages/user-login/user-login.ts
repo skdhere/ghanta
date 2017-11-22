@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Observable} from 'rxjs/Observable';
+import { IonicPage, NavController, ViewController, MenuController, NavParams,LoadingController,ToastController,AlertController  } from 'ionic-angular';
+import {Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Network } from '@ionic-native/network';
-
-// import { Dashboard } from '../dashboard/dashboard';
-// import { UserSignup } from '../user-signup/user-signup';
-// import { UserForgotpassword } from '../user-forgotpassword/user-forgotpassword';
 
 @IonicPage()
 @Component({
@@ -14,22 +13,71 @@ import { Network } from '@ionic-native/network';
 })
 export class UserLogin {
 
+  loginflag:number=0;
+  Credentials:any;
+  isOnline:boolean=false;
+  type:boolean=false;
+  page_title:string;
+  submitAttempt:boolean=false;
+  collect:FormGroup;
+  constructor(public menu :MenuController,public network:Network,private viewCtrl:ViewController,private alertCtrl: AlertController,private sqlite: SQLite,public navCtrl: NavController,public toastCtrl: ToastController,  public formBuilder: FormBuilder,  public navParams: NavParams,public http:Http,public loadingCtrl: LoadingController) {
+    
+    this.Credentials = {email:'dd',password:'dd'}
 
-  constructor(public navCtrl: NavController, public network: Network, public navParams: NavParams) {
+    this.menu.enable(false);
 
+    //=======================To start network check===================//
+     let type =this.network.type;
+    if(type == "unknown" || type == "none" || type == undefined){
+        this.isOnline = false;
+      }else{
+        this.isOnline = true;
+      }
 
-        // watch network for a disconnect
-        let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-          console.log('network was disconnected :-(');
+      this.network.onDisconnect().subscribe( () => {
+          this.isOnline = false;
+      });
 
-          alert('offline');
+      this.network.onConnect().subscribe( () => {
+          this.isOnline = true;
         });
+    //======================end Network====================================//
 
-        // stop disconnect watch
-        disconnectSubscription.unsubscribe();
+      //=========================start form validation===============================//
+      this.Credentials = {email:'dd',password:'dd'};
+      this.collect = formBuilder.group({
+      'pin' : ['', Validators.compose([Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[0-9]+$'), Validators.required])],
+      'cpin' : ['', Validators.compose([Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[0-9]+$')])],
+      });
+
+      //================================End form validation==/////////////////////////
+
+      this.sqlite.create({
+      name: 'data.db',
+      location: 'default'
+      })
+      .then((db: SQLiteObject) => {
+
+      //create table section
+      db.executeSql('CREATE TABLE IF NOT EXISTS loginPin(id INTEGER PRIMARY KEY AUTOINCREMENT,pin,mobile)', {})
+      .then(() => console.log('done'))
+      .catch(e => console.log(e));
+
+       db.executeSql('select * from loginPin', {}).then((data) => {
+       if(data.rows.length > 0) {
+        this.loginflag=2;
+        this.page_title="Login";
+      }
+
+      }, (err) => {
+      alert('Unable to execute sql: '+JSON.stringify(err));
+      });
+      })
+      .catch(e => alert(JSON.stringify(e)));
+       
   }
 
-    Credentials = {email:'dd',password:'dd'}
+    
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserLogin');
@@ -42,29 +90,104 @@ export class UserLogin {
   login(credentials)
   {
 
-     // watch network for a connection
-        let connectSubscription = this.network.onConnect().subscribe(() => {
-          console.log('network connected!');
-           alert('online');
-          // We just got a connection but we need to wait briefly
-           // before we determine the connection type. Might need to wait.
-          // prior to doing any api requests as well.
-          setTimeout(() => {
-            if (this.network.type === 'wifi') {
-              console.log('we got a wifi connection, woohoo!');
-            }
-          }, 3000);
-        });
-
-        // stop connect watch
-        connectSubscription.unsubscribe();
-    console.log(credentials);
-    this.navCtrl.push('LoginpinPage');
+    if(this.isOnline)
+    {
+      console.log(credentials);
+      this.loginflag=1;
+    }
+    else{
+        alert('Network error...');
+    }
+    
   }
 
 
   ionViewWillLeave() {
     console.log("Looks like I'm about to leave :(");
+  }
+
+  setPin()
+  {
+    this.submitAttempt = true;
+    
+    
+    if (this.collect.valid) 
+    {
+      let loading = this.loadingCtrl.create({
+          content: 'Please wait...',
+          dismissOnPageChange:true,
+          duration: 3000
+      });
+      loading.present();
+
+      let controls = this.collect.controls;
+       
+      this.sqlite.create({
+      name: 'data.db',
+      location: 'default'
+      })
+      .then((db: SQLiteObject) => {
+       db.executeSql('INSERT INTO loginPin(pin,mobile) VALUES(\''+controls['pin'].value+'\',\'9405487116\')', [])
+      .then(() =>this.loginflag=2)
+      .catch(e => console.log(e));
+       })
+      .catch(e => alert(JSON.stringify(e)));
+
+
+      loading.dismiss();
+  
+    }else
+    {
+      // console.log('Validation error', this.coll.controls);
+      console.log('Validation error', this.collect.controls);
+      this.showMessage("Please fill valid data!", "toastcontainer", 100000);
+    }
+  }
+
+  showMessage(message, style: string, dur?: number){
+    const toast = this.toastCtrl.create({
+        message: message,
+        showCloseButton: true,
+        duration: dur || 300,
+        closeButtonText: 'Ok',
+        cssClass: style,
+        dismissOnPageChange: true
+      });
+
+      toast.present();
+  }
+
+  pincheck(pin)
+  {
+    let loading = this.loadingCtrl.create({
+          content: 'Please wait...',
+          dismissOnPageChange:true,
+          duration: 3000
+      });
+      loading.present();
+
+      console.log(pin);
+      this.sqlite.create({
+      name: 'data.db',
+      location: 'default'
+      })
+      .then((db: SQLiteObject) => {
+
+      //create table section
+      db.executeSql('CREATE TABLE IF NOT EXISTS loginPin(id INTEGER PRIMARY KEY AUTOINCREMENT,pin,mobile)', {})
+      .then(() => console.log('done'))
+      .catch(e => console.log(e));
+      db.executeSql('select * from loginPin WHERE pin=\''+pin+'\'', {}).then((data) => {
+         console.log(data.rows.length);
+    if(data.rows.length > 0) {
+        this.navCtrl.setRoot('Dashboard');
+      }
+
+      }, (err) => {
+      alert('Unable to execute sql: '+JSON.stringify(err));
+      });
+      })
+      .catch(e => alert(JSON.stringify(e)));
   }
 
 }

@@ -93,7 +93,7 @@ submitAttempt: boolean = false;
           location: 'default'
           })
           .then((db: SQLiteObject) => {
-           db.executeSql('INSERT INTO usernameList(name,mobile_no,amount,comment,ukey,date) VALUES(\''+controls['fname'].value+'\',\''+controls['fmobile'].value+'\',\''+controls['famount'].value+'\',\''+controls['fcomment'].value+'\',\'jbdjhbdffdg\',\''+controls['fdate'].value+'\')', [])
+           db.executeSql('INSERT INTO collection(name,mobile_no,amount,comment,ukey,date) VALUES(\''+controls['fname'].value+'\',\''+controls['fmobile'].value+'\',\''+controls['famount'].value+'\',\''+controls['fcomment'].value+'\',\'jbdjhbdffdg\',\''+controls['fdate'].value+'\')', [])
           .then(() =>this.savenexit())
           .catch(e => console.log(e));
            })

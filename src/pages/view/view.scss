@@ -1,0 +1,22 @@
+page-view {
+
+
+	ion-content{
+	         background-color:color($colors,primary);
+	         background-image:url('../assets/images/good.jpg');
+	         background-size:100% auto;
+	         
+	      }
+	.username{
+	         font-size: large;
+	      }
+	table, th, td {
+	    border-collapse: collapse;
+	    font-size: large;
+	      }
+    th, td {
+		    padding: 5px;
+		    text-align: left;    
+		 }
+
+}

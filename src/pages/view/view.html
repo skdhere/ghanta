@@ -1,0 +1,45 @@
+<!--
+  Generated template for the ViewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>User Detail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+           <ion-row col-12 style="background-color: #fff5f5;position: fixed;padding: top:25px">
+               <span col-4> <img src="assets/images/user_black.png"></span>	  		
+             <div col-8>
+                <table >
+                    <tr>
+                      <th>Name :</th>
+                      <th colspan="2">Sandip Annappa Patil</th>
+                    </tr>
+                    <tr>
+                      <td>acc no:</td>
+                      <td>401</td>
+                    </tr>
+                    <tr>
+                      <td>mob no:</td>
+                      <td>8123485313</td>
+                    </tr>
+                </table>
+             </div>
+           </ion-row>
+           <ion-row col-12 class="username" style="background-color: #fff5f5c9;" >
+                 <span col-5>Total Amount :</span>
+                 <span col-4>500000</span>
+            </ion-row>
+            <ion-card *ngFor="let result of dummy_data">
+            <ion-icon name="person"></ion-icon>
+            <span>&nbsp;&nbsp;&nbsp;{{result.amount}}</span>
+            <span style="float: right">&nbsp;&nbsp;&nbsp;{{result.added_date}}/-</span>
+            </ion-card>
+   </ion-content>

@@ -24,9 +24,9 @@ $font-path: "../assets/fonts";
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #d52f39,
-  secondary:  #770a0e,
-  danger:     #ff0000,
+  primary:    #0f5945,
+  secondary:  #0f5945,
+  danger:     #0f5945,
   light:      #fff,
   dark:       #000
 );
@@ -37,12 +37,12 @@ $size_normal:1.3rem;
 $size_large:1.8rem;
 $size_extralarge:2.1rem;
 
-$border-color:#ccc;
+$border-color:#fff;
 
 $rprimary : #fff;
 $rsecondary: #C9C7D3;
 $pholder:#666;
-$border:#ccc;
+$border:#fff;
 $button:#0d47a1;
 $loginSignupGradiant:#768fff;
 // Manage toolbar color
@@ -53,7 +53,7 @@ $toolbar-background:color($colors, primary);
 $menu_bg_color:color($colors, secondary);
 $menu_font_color:$rsecondary;
 $menu_font_size:$size_normal;
-$menu_separator_line_color:#4f0306;
+$menu_separator_line_color:#fff;
 $menu_avatar_bg_color:color($colors, light);
 $menu_avatar_font_color:color($colors, dark);
 $menu_avatar_text_color:color($colors, light);

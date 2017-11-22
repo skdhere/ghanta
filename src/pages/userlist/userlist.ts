@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,ModalController,NavParams,LoadingController,ToastController,AlertController  } from 'ionic-angular';
+import { IonicPage, NavController,ModalController, ViewController, NavParams,LoadingController,ToastController,AlertController  } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import {Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -23,7 +23,7 @@ export class UserlistPage {
 
 	dummy_data:any;
 	results:any;
-  constructor(public modal:ModalController,private alertCtrl: AlertController,private sqlite: SQLite,public navCtrl: NavController,public toastCtrl: ToastController,  public formBuilder: FormBuilder,  public navParams: NavParams,private barcodeScanner: BarcodeScanner,public http:Http,public loadingCtrl: LoadingController,private datePicker: DatePicker) {
+  constructor(public viewCtrl:ViewController,public modal:ModalController,private alertCtrl: AlertController,private sqlite: SQLite,public navCtrl: NavController,public toastCtrl: ToastController,  public formBuilder: FormBuilder,  public navParams: NavParams,private barcodeScanner: BarcodeScanner,public http:Http,public loadingCtrl: LoadingController,private datePicker: DatePicker) {
   
      
   	  this.sqlite.create({
@@ -37,26 +37,7 @@ export class UserlistPage {
       .then(() => console.log('done'))
       .catch(e => console.log(e));
 
-      db.executeSql('select * from usernameList', {}).then((data) => {
-
-      
-      if(data.rows.length == 0)
-      {
-     	 for(var i = 0; i < this.dummy_data.length; i++) 
-     	 {
-     	 	  db.executeSql('INSERT INTO users(name,mobile_no,server_id,added_date) VALUES(\''+this.dummy_data[i]['name']+'\',\''+this.dummy_data[i]['mobile_no']+'\',\''+this.dummy_data[i]['server_id']+'\',\''+this.dummy_data[i]['added_date']+'\')', [])
-		      .then(() =>this.navCtrl.setRoot('Dashboard'))
-		      .catch(e => console.log(e));
-         }	
-         
-         console.log('hiiiiiiiiiii');
-      }
-
-      }, (err) => {
-      alert('Unable to execute sql: '+JSON.stringify(err));
-      });
-
-      db.executeSql('CREATE TABLE IF NOT EXISTS usernameList(id INTEGER PRIMARY KEY AUTOINCREMENT,name,mobile_no,amount,comment,ukey,date)', {})
+      db.executeSql('CREATE TABLE IF NOT EXISTS collection(id INTEGER PRIMARY KEY AUTOINCREMENT,name,mobile_no,amount,comment,ukey,date)', {})
       .then(() => console.log('done'))
       .catch(e => console.log(e));
 
@@ -66,7 +47,7 @@ export class UserlistPage {
       .catch(e => alert(JSON.stringify(e)));
 
       this.initializeItems();
-      this.loadingShow();
+     // this.loadingShow();
 
 
   }
@@ -127,6 +108,7 @@ export class UserlistPage {
               duration: 3000
           });
           loading.present();
+
   }
 
 }

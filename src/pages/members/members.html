@@ -15,19 +15,10 @@
 
 <ion-content>
 
-	  <ion-card >
+	  <ion-card *ngFor="let result of dummy_data" (click)="viewDatail(result.id)">
 	  <ion-icon name="person"></ion-icon>
-	  <span>&nbsp;&nbsp;&nbsp;Satish</span>
-	   <span class="fleft">&nbsp;&nbsp;&nbsp;Rs 70000/-</span>
+	  <span>&nbsp;&nbsp;&nbsp;{{result.name}}</span>
+	   <span class="fleft">&nbsp;&nbsp;&nbsp;{{result.mobile_no}}/-</span>
 	  </ion-card>
-	  <ion-card >
-	   <ion-icon name="person"></ion-icon> 
-	   <span >&nbsp;&nbsp;&nbsp;Sandip</span>
-	   <span class="fleft">&nbsp;&nbsp;&nbsp;Rs 50000/-</span>
-	  </ion-card>
-	  <ion-card >
-	  <ion-icon name="person"></ion-icon>
-	  <span>&nbsp;&nbsp;&nbsp;Prathmesh</span>
-	  <span class="fleft">&nbsp;&nbsp;&nbsp;Rs 30000/-</span>
-	  </ion-card>
+	  
 </ion-content>

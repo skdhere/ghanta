@@ -24,7 +24,7 @@ export class MyApp {
     alert: any = null;
     tprice:any;
     constructor(
-                private alertCtrl: AlertController,
+                public alertCtrl: AlertController,
                 public platform: Platform,
                 public menu: MenuController,
                 public statusBar: StatusBar,
@@ -32,28 +32,7 @@ export class MyApp {
                 private sqlite: SQLite,
                 public splashScreen: SplashScreen){
 
-        this.sqlite.create({
-                          name: 'data.db',
-                          location: 'default'
-                          })
-                          .then((db: SQLiteObject) => {
-
-                          //create table section
-                          db.executeSql('CREATE TABLE IF NOT EXISTS loginPin(id INTEGER PRIMARY KEY AUTOINCREMENT,pin,mobile)', {})
-                          .then(() => console.log('done'))
-                          .catch(e => console.log(e));
-
-                           db.executeSql('select * from loginPin ', {}).then((data) => {
-                            if(data.rows.length > 0) {
-                              this.rootPage='LoginpinPage';
-
-                          }
-
-                          }, (err) => {
-                          alert('Unable to execute sql: '+JSON.stringify(err));
-                          });
-                          })
-                          .catch(e => alert(JSON.stringify(e)));
+       
 
 
 
@@ -69,9 +48,8 @@ export class MyApp {
             statusBar.styleBlackOpaque();
 
             this.platform.registerBackButtonAction(() => {
-
+                //====================== start :to create poopup for exit confirmation====//
                 let currentView = this.nav.getActive();
-
                 if(menu.isOpen()){
                     menu.close();
                 }
@@ -114,7 +92,6 @@ export class MyApp {
                         this.nav.pop();
                     }
                 }
-
             });
         });
 
@@ -125,7 +102,7 @@ export class MyApp {
     this.upages =[{ title: 'Member List',icon:'person', component: 'MembersPage' },
       { title: 'Report',icon:'book', component: 'ReportPage' },
       { title: 'Upload Data',icon:'arrow-up', component: 'UploadPage' },
-      { title: 'Logut',icon:'lock', component: 'LoginpinPage' }];
+      { title: 'Logut',icon:'lock', component: 'UserLogin' }];
 
     // set our app's pages
     this.pages = [
@@ -149,7 +126,6 @@ export class MyApp {
     if(upage.component!="UserLogin")
     {
       this.nav.push(upage.component);
-
     }
     else{
       this.nav.setRoot(upage.component);

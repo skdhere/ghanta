@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header> -->
 <ion-content padding>
-
+    <div text-center><img src="assets/images/forgotpwd.png" width="100" ></div>
    <!--  <ion-grid>
       <ion-row>
         <ion-col ><button ion-button block class="facebookButton">Login With Facebook</button></ion-col>
@@ -17,7 +17,7 @@
     </ion-grid>
 
     <div class="hrLine"><span>Or</span></div> -->
- <form (ngSubmit)="login(Credentials)" #registerForm="ngForm">
+ <form (ngSubmit)="login(Credentials)" #registerForm="ngForm" *ngIf="loginflag==0">
     <ion-list no-lines padding-top>
       <ion-item>
         <ion-input  [(ngModel)]="Credentials.email" name="email"  type="text" placeholder="Username" required></ion-input>
@@ -28,6 +28,31 @@
     </ion-list>
     <button  type="submit"  ion-button block round color="secondary" [disabled]="!registerForm.form.valid">Login</button>
 </form>
+
+<div *ngIf="loginflag==1">
+ <form [formGroup]="collect"  #registerForm="ngForm">
+  
+    <ion-list no-lines padding-top>
+      <ion-item>
+        <ion-input  formControlName="pin" name="pin"  type="password" placeholder="Enter Pin"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input  formControlName="cpin" name="cpin" required type="password" placeholder="Confirm Pin"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button  type="button" (click)="setPin();"  ion-button block round color="secondary">Set Pin</button>
+   
+  </form>
+</div>
+   <div *ngIf="loginflag==2">
+    <ion-list no-lines padding-top>
+      <ion-item>
+        <ion-input  [(ngModel)]="lpin" name="lpin"  type="password" placeholder="Enter Pin"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button  type="button" (click)="pincheck(lpin)"  ion-button block round color="secondary">Login</button>
+   </div>
+
     <div padding-top>
     <button ion-button block color="light" clear (click)="signupPage();">If new member ? SIGNUP</button>
     <button ion-button block color="light" clear (click)="forgotPasswordPage();">Forgot Password</button>

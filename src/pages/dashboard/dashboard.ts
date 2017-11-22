@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,MenuController } from 'ionic-angular';
 
 /**
  * Generated class for the Dashboard page.
@@ -14,7 +14,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Dashboard {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public menu:MenuController, public navCtrl: NavController, public navParams: NavParams) {
+    this.menu.enable(true);
   }
 
   ionViewDidLoad() {
@@ -23,8 +24,7 @@ export class Dashboard {
 
   collect()
   {
-  	// this.navCtrl.push('CollectPage');
-    this.navCtrl.push('UserlistPage');
+  	this.navCtrl.push('UserlistPage');
   }
 
   report()

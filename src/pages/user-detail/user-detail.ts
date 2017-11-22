@@ -24,9 +24,7 @@ export class UserDetailPage {
   constructor(private alertCtrl: AlertController,private sqlite: SQLite,public navCtrl: NavController,public toastCtrl: ToastController,  public formBuilder: FormBuilder,  public navParams: NavParams,public loadingCtrl: LoadingController,private datePicker: DatePicker) {
   
   	this.id =this.navParams.get('id');
-
-  	console.log(this.id);
-  	this.loadingShow();
+     
 
   	this.collect = formBuilder.group({
       'fname' : ['', Validators.compose([Validators.maxLength(50), Validators.minLength(3), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
@@ -67,11 +65,9 @@ export class UserDetailPage {
       })
       .then((db: SQLiteObject) => {
 
-      db.executeSql("select * from usernameList where id='"+this.id+"'", {}).then((data) => {
+      db.executeSql("select * from collection where id='"+this.id+"'", {}).then((data) => {
 
-      console.log(data);
-      console.log("select * from usernameList where id='"+this.id+"'");
-      console.log(data.rows);
+      
       if(data.rows.length)
       {
       	controls['fname'].setValue(data.rows.item(0).name);
@@ -106,8 +102,8 @@ export class UserDetailPage {
       location: 'default'
       })
       .then((db: SQLiteObject) => {
-       db.executeSql('UPDATE usernameList SET name=\''+controls['fname'].value+'\',mobile_no=\''+controls['fmobile'].value+'\',amount=\''+controls['famount'].value+'\',comment=\''+controls['fcomment'].value+'\',ukey=\'jbdjhbdffdg\',date=\''+controls['fdate'].value+'\' WHERE id='+this.id+'', [])
-      .then(() =>this.navCtrl.push('UploadPage'))
+       db.executeSql('UPDATE collection SET name=\''+controls['fname'].value+'\',mobile_no=\''+controls['fmobile'].value+'\',amount=\''+controls['famount'].value+'\',comment=\''+controls['fcomment'].value+'\',ukey=\'jbdjhbdffdg\',date=\''+controls['fdate'].value+'\' WHERE id='+this.id+'', [])
+      .then(() =>this.navCtrl.pop())
       .catch(e => console.log(e));
        })
       .catch(e => alert(JSON.stringify(e)));

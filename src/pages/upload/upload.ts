@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,LoadingController,AlertController} from 'ionic-angular';
+import { IonicPage,Platform, NavController,Nav, NavParams,LoadingController,AlertController} from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 /**
@@ -14,14 +14,29 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
   templateUrl: 'upload.html',
 })
 export class UploadPage {
-
+ // @ViewChild(Nav) nav: Nav;
   items:any;
   results:any;
   isOnline:boolean=false;
-  constructor( private sqlite: SQLite,private alertCtrl: AlertController,public network: Network,public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController) {
+  alert:any;
+  constructor(public nav:Nav,public platform:Platform, private sqlite: SQLite,private alertCtrl: AlertController,public network: Network,public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController) {
  
     let type = this.network.type;
 
+     this.platform.registerBackButtonAction(() => {
+       this.alert.dismiss();
+       if(this.nav.canGoBack())
+                {
+                  this.nav.pop();
+                }
+                else{
+                  if(this.alert())
+                  {
+                    this.alert.dismiss();
+                  }
+                }
+     });
+    
     
     this.results =[];
    // this.results=[{id: 1, name: "Satish", mobile_no: "9405487216", amount: "34", comment: "Fbh"},{id: 2, name: "amol", mobile_no: "1548547852", amount: "10", comment: "Fbh"}];
@@ -55,7 +70,7 @@ export class UploadPage {
       })
       .then((db: SQLiteObject) => {
 
-      db.executeSql('select * from usernameList', {}).then((data) => {
+      db.executeSql('select * from collection', {}).then((data) => {
 
       
       this.items = [];
@@ -85,7 +100,7 @@ export class UploadPage {
 
   deleteRecord(id)
   {
-      let alert = this.alertCtrl.create({
+      this.alert = this.alertCtrl.create({
         title: 'Confirm...!',
         subTitle: 'Are you sure want to delete.', 
         enableBackdropDismiss:false,
@@ -106,7 +121,7 @@ export class UploadPage {
         ],
 
       });
-      alert.present();
+      this.alert.present();
   }
 
 
