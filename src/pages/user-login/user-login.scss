@@ -6,22 +6,15 @@
 
       .toolbar-background{ background:transparent; border-style:none;}
       .toolbar::after,.header-md::after{ background-image:none;}
-      ion-content{
-        background-color:color($colors,primary);
-         background-image:url('../assets/images/login_icon1.jpg');
-         background-size:100% auto;
-         background-repeat: no-repeat;
+    ion-content{
+      /*background-color:color($colors,primary);*/
+      background-color: #13a980;
+       background-image:url('../assets/images/bg-pattern.png');
+       background-size:100% auto;
+    }
+  //  .scroll-content { display: table; width: 100%; height: 100%; }
+  //  .centerAlign { display: table-cell; vertical-align: middle; }
 
-         .button-inner{
-          color: color($colors,primary);
-          font-size: 15px;
-         }
-      }
-
-
-      
-      .centerAlign { display: table-cell; vertical-align: middle; border:#ff0000 1px solid; }
-
-      .item{border:$border-color 1px solid !important; margin-bottom:10px;}
+    .item{border:$border-color 1px solid !important; margin-bottom:10px;}
   }
 }

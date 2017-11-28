@@ -20,15 +20,26 @@ export class UserLogin {
   page_title:string;
   submitAttempt:boolean=false;
   collect:FormGroup;
-  constructor(public menu :MenuController,public network:Network,private viewCtrl:ViewController,private alertCtrl: AlertController,private sqlite: SQLite,public navCtrl: NavController,public toastCtrl: ToastController,  public formBuilder: FormBuilder,  public navParams: NavParams,public http:Http,public loadingCtrl: LoadingController) {
+  constructor(public menu :MenuController,
+              public network:Network,
+              private viewCtrl:ViewController,
+              private alertCtrl: AlertController,
+              private sqlite: SQLite,
+              public navCtrl: NavController,
+              public toastCtrl: ToastController, 
+              public formBuilder: FormBuilder, 
+              public navParams: NavParams,
+              public http:Http,
+              public loadingCtrl: LoadingController) {
     
     this.Credentials = {email:'dd',password:'dd'}
 
     this.menu.enable(false);
 
     //=======================To start network check===================//
-     let type =this.network.type;
-    if(type == "unknown" || type == "none" || type == undefined){
+      let type =this.network.type;
+      if(type == "unknown" || type == "none" || type == undefined)
+      {
         this.isOnline = false;
       }else{
         this.isOnline = true;
@@ -44,11 +55,11 @@ export class UserLogin {
     //======================end Network====================================//
 
       //=========================start form validation===============================//
-      this.Credentials = {email:'dd',password:'dd'};
-      this.collect = formBuilder.group({
-      'pin' : ['', Validators.compose([Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[0-9]+$'), Validators.required])],
-      'cpin' : ['', Validators.compose([Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[0-9]+$')])],
-      });
+        this.Credentials = {email:'dd',password:'dd'};
+        this.collect = formBuilder.group({
+        'pin' : ['', Validators.compose([Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[0-9]+$'), Validators.required])],
+        'cpin' : ['', Validators.compose([Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[0-9]+$')])],
+        });
 
       //================================End form validation==/////////////////////////
 
@@ -58,20 +69,20 @@ export class UserLogin {
       })
       .then((db: SQLiteObject) => {
 
-      //create table section
-      db.executeSql('CREATE TABLE IF NOT EXISTS loginPin(id INTEGER PRIMARY KEY AUTOINCREMENT,pin,mobile)', {})
-      .then(() => console.log('done'))
-      .catch(e => console.log(e));
+        //create table section
+        db.executeSql('CREATE TABLE IF NOT EXISTS loginPin(id INTEGER PRIMARY KEY AUTOINCREMENT,pin,mobile)', {})
+        .then(() => console.log('done'))
+        .catch(e => console.log(e));
 
-       db.executeSql('select * from loginPin', {}).then((data) => {
-       if(data.rows.length > 0) {
-        this.loginflag=2;
-        this.page_title="Login";
-      }
+         db.executeSql('select * from loginPin', {}).then((data) => {
+         if(data.rows.length > 0) {
+          this.loginflag=2;
+          this.page_title="Login";
+        }
 
-      }, (err) => {
-      alert('Unable to execute sql: '+JSON.stringify(err));
-      });
+        }, (err) => {
+        alert('Unable to execute sql: '+JSON.stringify(err));
+        });
       })
       .catch(e => alert(JSON.stringify(e)));
        

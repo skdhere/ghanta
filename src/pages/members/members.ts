@@ -37,10 +37,11 @@ export class MembersPage {
 
   }
 
-  viewDatail(mobile_no)
+  viewDatail(result)
   {
     this.loadingShow();
-  	this.navCtrl.push('ViewPage',{"mobile_no":mobile_no});
+    console.log(result);
+  	this.navCtrl.push('ViewPage',{"result":result});
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad MembersPage');

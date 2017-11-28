@@ -6,11 +6,17 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <!-- <ion-navbar>
     <ion-title>Upload</ion-title>
     
-  </ion-navbar>
+  </ion-navbar> -->
+<ion-navbar>
+    <ion-buttons end>
+     <!-- <button ion-button icon-left style="float: left" color="light" (click)="closeModal();" >Cancel</button> -->
+     <button ion-button icon-right color="light" (click)="uploadData();" ><ion-icon name="cloud-upload"></ion-icon> &nbsp;Upload </button>
+   </ion-buttons>
 
+  </ion-navbar>
 </ion-header>
 
 
@@ -32,13 +38,22 @@
 		    <p>
 		    	<ion-row>
 		      	  <ion-col col-4> 
-		            <span class="" (click)="deleteRecord(result.id);" style="float: left"> <ion-icon style="color:#fff" name="trash"></ion-icon></span> 
+		            <span class="" (click)="deleteRecord(result.id);" style="float: left"> 
+		            	<!-- <ion-icon style="color:#fff" name="trash"></ion-icon> -->
+		            	<small style="color: #fff">Delete</small>
+		            </span> 
 		      	  </ion-col> 
 		      	  <ion-col col-4 text-center>  
-					<span text-center (click)="viewRecord(result.id);"> &nbsp;&nbsp;<ion-icon style="color:#fff" name="eye"></ion-icon></span> 
+					<span text-center (click)="viewRecord(result.id);"> &nbsp;&nbsp;
+						<!-- <ion-icon style="color:#fff" name="eye"></ion-icon> -->
+						<small style="color: #fff">Edit</small>
+					</span> 
 				 </ion-col>
 				  <ion-col col-4> 
-				    <span item-center style="float: right" (click)="uploadData();"> <ion-icon style="color:#fff" name="arrow-up"></ion-icon></span> 
+				    <span item-center style="float: right" (click)="uploadData();"> 
+				    	<!-- <ion-icon style="color:#fff" name="arrow-up"></ion-icon> -->
+				    	<small style="color: #fff">Upload</small>
+				    </span> 
 				  </ion-col>
 				</ion-row>
 
@@ -49,7 +64,7 @@
 	  
 	    
 </div>
-	   <ion-fab top right edge color="light">
+	  <!--  <ion-fab top right edge color="light">
            <button (click)="uploadData();" ion-fab><ion-icon name="arrow-up"></ion-icon></button>
-      </ion-fab>
+      </ion-fab> -->
 </ion-content>

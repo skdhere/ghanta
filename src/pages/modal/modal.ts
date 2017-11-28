@@ -93,7 +93,7 @@ submitAttempt: boolean = false;
             let d     = new Date(tdate).getDate();
             let m     = new Date(tdate).getMonth();
             let y     = new Date(tdate).getFullYear();
-            tdate     = y+'-'+m+'-'+d;
+            tdate     = y+'-'+(m+1)+'-'+d;
           console.log(tdate);
           this.sqlite.create({
           name: 'data.db',

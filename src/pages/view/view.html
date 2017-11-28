@@ -17,8 +17,8 @@
            <ion-row col-12 style="background-color: #33a586;color: #fff">
                <span col-3> <img src="assets/images/user_circle.png"></span>	  		
              <div col-9>
-                <h3>Satish Dhere</h3>
-                <h6>940548716</h6>
+                <h3>{{name}}</h3>
+                <h6>{{mobile_number}}</h6>
              </div>
            </ion-row>
            <ion-row class="detail" style="background-color: #33a586;color: #fff" >
@@ -26,19 +26,19 @@
                     <small>Monthly Collection</small>
                 </div>
                 <div col-3 style="vertical-align: middle;font-size: 24px">
-                    500 /-
+                    {{this_month}} /-
                 </div>
                 <div col-3>
                     <small>Total Collection</small>
                 </div>
                 <div col-3 style="vertical-align: middle;font-size: 24px">
-                    4500 /-
+                    {{total_amount}} /-
                 </div>
                  
             </ion-row>
-            <ion-card style="padding:10px;background-color: #fff5f5;" *ngFor="let result of dummy_data">
-            <ion-icon name="person"></ion-icon>
+            <ion-card style="padding:10px;background-color: #fff5f5;" *ngFor="let result of results">
+            Rs. 
             <span>&nbsp;&nbsp;&nbsp;{{result.amount}}</span>
-            <span style="float: right">&nbsp;&nbsp;&nbsp;{{result.added_date}}/-</span>
+            <span style="float: right">&nbsp;&nbsp;&nbsp;{{result.date}}/-</span>
             </ion-card>
    </ion-content>

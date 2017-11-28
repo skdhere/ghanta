@@ -26,15 +26,15 @@ export class ReportPage {
   		let d     = new Date().getDate();
   		let m     = new Date().getMonth();
   		let y     = new Date().getFullYear();
-  		today     = y+'-'+m+'-'+d;
-  		let fdate = y+'-'+m+'-01';
+  		today     = y+'-'+(m+1)+'-'+d;
+  		let fdate = y+'-'+(m+1)+'-01';
   		//tdate   = new Date(tdate).toLocaleString();
   		//=======================================Start Database=========================================//
   		this.sqlite.create({
-      name: 'data.db',
-      location: 'default'
-      })
-      .then((db: SQLiteObject) => {
+		      name: 'data.db',
+		      location: 'default'
+		      })
+		      .then((db: SQLiteObject) => {
 
 	  		    db.executeSql('select sum(amount) as amount from collection', {}).then((data) => {
 
@@ -50,6 +50,7 @@ export class ReportPage {
 		     		 alert('Unable to execute sql: '+JSON.stringify(err));
 		     		 });
 
+	  		    	console.log('select sum(amount) as mamount from collection WHERE date >='+fdate+' ');
 	  		    	 db.executeSql('select sum(amount) as mamount from collection WHERE date >='+fdate+' ', {}).then((data) => {
 
 	    		   if(data.rows.length > 0)
@@ -65,7 +66,7 @@ export class ReportPage {
 		     		 });
 
 
- 	console.log("select * from collection where date = '"+today+"'  ");
+ 	
 	  		       db.executeSql("select * from collection where date = '"+today+"' ", {}).then((data) => {
 	  		       	console.log(today);
 	  		      

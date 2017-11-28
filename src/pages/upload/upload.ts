@@ -85,7 +85,7 @@ export class UploadPage {
       
       }
 
-          console.log(this.results);
+      console.log(this.results);
       }
 
       }, (err) => {
@@ -140,7 +140,7 @@ export class UploadPage {
 
     db.executeSql('DELETE  from collection WHERE id="'+id+'"', {}).then((data) => {
 
-      
+      this.loadData();
     }
     , (err) => {
     alert('Unable to execute sql: '+JSON.stringify(err));
@@ -148,7 +148,7 @@ export class UploadPage {
     })
     .catch(e => alert(JSON.stringify(e)));
 
-    this.loadData();
+    
  }
 
 

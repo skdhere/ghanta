@@ -99,9 +99,9 @@ export class MyApp {
        
 
        // set inside pages
-    this.upages =[{ title: 'Member List',icon:'person', component: 'MembersPage' },
-      { title: 'Report',icon:'book', component: 'ReportPage' },
-      { title: 'Upload Data',icon:'arrow-up', component: 'UploadPage' },
+    this.upages =[{ title: 'Member List',icon:'md-contacts', component: 'MembersPage' },
+      { title: 'Report',icon:'md-clipboard', component: 'ReportPage' },
+      { title: 'Upload Data',icon:'cloud-upload', component: 'UploadPage' },
       { title: 'Logut',icon:'lock', component: 'UserLogin' }];
 
     // set our app's pages
