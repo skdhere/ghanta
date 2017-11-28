@@ -7,6 +7,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Network } from '@ionic-native/network';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import {CsvService} from 'angular2-json2csv';
 
 // import { UserLogin } from '../pages/user-login/user-login';
 // import { UserSignup } from '../pages/user-signup/user-signup';
@@ -45,6 +46,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BarcodeScanner,
     DatePicker,
     Network,
+    CsvService,
     SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

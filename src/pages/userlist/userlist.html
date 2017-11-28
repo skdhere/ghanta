@@ -14,8 +14,8 @@
 
 
 <ion-content padding>
-<ion-list>
-  <ion-item *ngFor="let item of dummy_data" (click)="collect(item)">
+<ion-list *ngFor="let item of dummy_data" style="background-color:#2b4030">
+  <ion-item  (click)="collect(item)" style="background-color:#2b4030;color: #fff;border-radius: 10px;">
    {{ item.name }}<span item-right>{{item.mobile_no}}</span>
   </ion-item>
 </ion-list>

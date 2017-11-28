@@ -182,6 +182,11 @@ export class UserLogin {
     if(data.rows.length > 0) {
         this.navCtrl.setRoot('Dashboard');
       }
+      else{
+
+        alert('Incorrect Pin...!');
+        loading.dismiss();
+      }
 
       }, (err) => {
       alert('Unable to execute sql: '+JSON.stringify(err));

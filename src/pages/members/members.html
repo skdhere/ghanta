@@ -15,7 +15,7 @@
 
 <ion-content>
 
-	  <ion-card *ngFor="let result of dummy_data" (click)="viewDatail(result.id)">
+	  <ion-card *ngFor="let result of dummy_data" (click)="viewDatail(result.id)" style="background-color: #178484;color: #fff;border-radius: 10px">
 	  <ion-icon name="person"></ion-icon>
 	  <span>&nbsp;&nbsp;&nbsp;{{result.name}}</span>
 	   <span class="fleft">&nbsp;&nbsp;&nbsp;{{result.mobile_no}}/-</span>

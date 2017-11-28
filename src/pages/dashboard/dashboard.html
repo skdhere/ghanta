@@ -3,7 +3,7 @@
     <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     <ion-title text-center> Dashboard</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only><ion-icon name="search">{{tprice}}</ion-icon></button>
+     <!--  <button ion-button icon-only><ion-icon name="search">{{tprice}}</ion-icon></button> -->
     </ion-buttons>
 
   </ion-navbar>
@@ -23,18 +23,34 @@
     </ion-slide>
   </ion-slides> -->
 
-
-  <ion-card (click)="collect()">
-    <img src="assets/images/ads/ads1.jpg">
+  
+  <ion-card (click)="collect()" style="    padding: 30px;
+    color: #fff;
+    background-color: #2b4030;
+    font-size: 25px;
+    border-radius: 12px;">
+    <ion-icon name="md-trending-up"></ion-icon> Collection
   </ion-card>
-  <ion-card (click)="report()">
-    <img src="assets/images/ads/ads3.jpg">
+  <ion-card (click)="report()" style="    padding: 30px;
+    color: #fff;
+    background-color: #1c4e40;
+    font-size: 25px;
+    border-radius: 12px;">
+   <ion-icon name="md-clipboard"></ion-icon>   Report
   </ion-card>
-  <ion-card (click)="members()">
-    <img src="assets/images/ads/ads1.jpg">
+  <ion-card (click)="members()" style="    padding: 30px;
+    color: #fff;
+    background-color: #178484;
+    font-size: 25px;
+    border-radius: 12px;">
+   <ion-icon name="md-contacts"></ion-icon>    Members
   </ion-card>
-  <ion-card (click)="upload()">
-    <img src="assets/images/ads/ads3.jpg">
+  <ion-card (click)="upload()" style="    padding: 30px;
+    color: #fff;
+    background-color: #404156;
+    font-size: 25px;
+    border-radius: 12px;">
+    <ion-icon name="cloud-upload"></ion-icon>   Upload Data
   </ion-card>
 
 </ion-content>

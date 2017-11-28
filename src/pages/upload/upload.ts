@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage,Platform, NavController,Nav, NavParams,LoadingController,AlertController} from 'ionic-angular';
+import { IonicPage,Platform, ViewController, NavController,Nav, NavParams,LoadingController,AlertController} from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 /**
@@ -18,30 +18,33 @@ export class UploadPage {
   items:any;
   results:any;
   isOnline:boolean=false;
-  alert:any;
-  constructor(public nav:Nav,public platform:Platform, private sqlite: SQLite,private alertCtrl: AlertController,public network: Network,public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController) {
+   alert: any = null;
+  constructor(public viewCtrl:ViewController,public nav:Nav,public platform:Platform, private sqlite: SQLite,private alertCtrl: AlertController,public network: Network,public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController) {
  
     let type = this.network.type;
 
-     this.platform.registerBackButtonAction(() => {
-       this.alert.dismiss();
-       if(this.nav.canGoBack())
-                {
-                  this.nav.pop();
-                }
-                else{
-                  if(this.alert())
-                  {
-                    this.alert.dismiss();
-                  }
-                }
-     });
-    
+     
+    this.platform.ready().then(() => {
+
+          this.platform.registerBackButtonAction(() => {
+
+              if(this.alert == null)
+              {
+                this.navCtrl.pop();
+              }
+              else
+              {
+                this.alert.dismiss();
+                this.alert = null;
+              }
+          });
+        
+
+    });// platform end
     
     this.results =[];
-   // this.results=[{id: 1, name: "Satish", mobile_no: "9405487216", amount: "34", comment: "Fbh"},{id: 2, name: "amol", mobile_no: "1548547852", amount: "10", comment: "Fbh"}];
-      
-     if(type == "unknown" || type == "none" || type == undefined){
+   
+      if(type == "unknown" || type == "none" || type == undefined){
         this.isOnline = false;
       }else{
         this.isOnline = true;
@@ -82,7 +85,7 @@ export class UploadPage {
       
       }
 
-      console.log(this.results);
+          console.log(this.results);
       }
 
       }, (err) => {
@@ -135,7 +138,10 @@ export class UploadPage {
     })
     .then((db: SQLiteObject) => {
 
-    db.executeSql('DELETE  from usernameList WHERE id="'+id+'"', {}).then((data) => {}
+    db.executeSql('DELETE  from collection WHERE id="'+id+'"', {}).then((data) => {
+
+      
+    }
     , (err) => {
     alert('Unable to execute sql: '+JSON.stringify(err));
     });
@@ -150,6 +156,10 @@ export class UploadPage {
     console.log('ionViewDidLoad UploadPage');
   }
 
+  ionViewWillLeave()
+  {
+      this.viewCtrl.dismiss();
+  }
 
   loadingShow()
   {

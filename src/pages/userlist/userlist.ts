@@ -6,7 +6,8 @@ import 'rxjs/add/operator/map';
 import { DatePicker } from '@ionic-native/date-picker';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
-import { ModalPage } from '../modal/'
+import { ModalPage } from '../modal/';
+import {CsvService} from 'angular2-json2csv';
 
 /**
  * Generated class for the UserlistPage page.
@@ -23,7 +24,7 @@ export class UserlistPage {
 
 	dummy_data:any;
 	results:any;
-  constructor(public viewCtrl:ViewController,public modal:ModalController,private alertCtrl: AlertController,private sqlite: SQLite,public navCtrl: NavController,public toastCtrl: ToastController,  public formBuilder: FormBuilder,  public navParams: NavParams,private barcodeScanner: BarcodeScanner,public http:Http,public loadingCtrl: LoadingController,private datePicker: DatePicker) {
+  constructor(private _csvService:CsvService, public viewCtrl:ViewController,public modal:ModalController,private alertCtrl: AlertController,private sqlite: SQLite,public navCtrl: NavController,public toastCtrl: ToastController,  public formBuilder: FormBuilder,  public navParams: NavParams,private barcodeScanner: BarcodeScanner,public http:Http,public loadingCtrl: LoadingController,private datePicker: DatePicker) {
   
      
   	  this.sqlite.create({
@@ -48,11 +49,12 @@ export class UserlistPage {
 
       this.initializeItems();
      // this.loadingShow();
-
+this._csvService.download(this.dummy_data,'fd.csv');
 
   }
     initializeItems()
     {
+
     	 this.dummy_data =[{'name':'Satish','mobile_no':'9405487216','server_id':'1','added_date':'11-12-2017'},
       {'name':'Yash','mobile_no':'9820828265','server_id':'2','added_date':'11-12-2017'},
       {'name':'Pradnyesh','mobile_no':'8779281290','server_id':'3','added_date':'11-12-2017'},
@@ -67,8 +69,14 @@ export class UserlistPage {
       {'name':'Ejaz','mobile_no':'9405487216','server_id':'12','added_date':'11-12-2017'},
 
       					];
-    }
 
+                this._csvService.ConvertToCSV(this.dummy_data);
+                
+                console.log('dddddd');
+
+
+    }
+    
 
       getItems(ev: any) {
     // Reset items back to all of the items
@@ -95,8 +103,9 @@ export class UserlistPage {
   collect(data)
   {
   	this.loadingShow();
-  	let modal = this.modal.create('ModalPage',{'data':data});
-    modal.present();
+  	// let modal = this.modal.create('ModalPage',{'data':data});
+   //  modal.present();
+   this.navCtrl.push('ModalPage',{'data':data});
     this.initializeItems();
   }
 

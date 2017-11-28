@@ -7,37 +7,36 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>User Detail</ion-title>
+    <ion-title></ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content >
-           <ion-row col-12 style="background-color: #fff5f5;position: fixed;padding: top:25px">
-               <span col-4> <img src="assets/images/user_black.png"></span>	  		
-             <div col-8>
-                <table >
-                    <tr>
-                      <th>Name :</th>
-                      <th colspan="2">Sandip Annappa Patil</th>
-                    </tr>
-                    <tr>
-                      <td>acc no:</td>
-                      <td>401</td>
-                    </tr>
-                    <tr>
-                      <td>mob no:</td>
-                      <td>8123485313</td>
-                    </tr>
-                </table>
+           <ion-row col-12 style="background-color: #33a586;color: #fff">
+               <span col-3> <img src="assets/images/user_circle.png"></span>	  		
+             <div col-9>
+                <h3>Satish Dhere</h3>
+                <h6>940548716</h6>
              </div>
            </ion-row>
-           <ion-row col-12 class="username" style="background-color: #fff5f5c9;" >
-                 <span col-5>Total Amount :</span>
-                 <span col-4>500000</span>
+           <ion-row class="detail" style="background-color: #33a586;color: #fff" >
+                 <div col-3>
+                    <small>Monthly Collection</small>
+                </div>
+                <div col-3 style="vertical-align: middle;font-size: 24px">
+                    500 /-
+                </div>
+                <div col-3>
+                    <small>Total Collection</small>
+                </div>
+                <div col-3 style="vertical-align: middle;font-size: 24px">
+                    4500 /-
+                </div>
+                 
             </ion-row>
-            <ion-card *ngFor="let result of dummy_data">
+            <ion-card style="padding:10px;background-color: #fff5f5;" *ngFor="let result of dummy_data">
             <ion-icon name="person"></ion-icon>
             <span>&nbsp;&nbsp;&nbsp;{{result.amount}}</span>
             <span style="float: right">&nbsp;&nbsp;&nbsp;{{result.added_date}}/-</span>

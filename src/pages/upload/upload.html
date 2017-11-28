@@ -22,23 +22,23 @@
 	   <span class="fleft">&nbsp;&nbsp;&nbsp;Rs {{result.amount}}/- &nbsp;&nbsp;<ion-icon (click)="uploadData(result.id);" name="arrow-up"></ion-icon></span>
 	  </ion-card> -->
 	  	<ion-card class="active" *ngFor="let result of results" >
-		  <small class="fleft">1-1-2017</small>
+		  <small class="fleft" style="color:#fff">1-1-2017</small>
 		  <ion-card-content>
 
-		    <ion-card-title>
+		    <ion-card-title style="color:#fff">
 		      {{result.name}}<span class="fleft">Rs. {{result.amount}} -/
 		      						</span>
 		      </ion-card-title>
 		    <p>
 		    	<ion-row>
 		      	  <ion-col col-4> 
-		            <span class="" (click)="deleteRecord(result.id);" style="float: left"> <ion-icon name="trash"></ion-icon></span> 
+		            <span class="" (click)="deleteRecord(result.id);" style="float: left"> <ion-icon style="color:#fff" name="trash"></ion-icon></span> 
 		      	  </ion-col> 
 		      	  <ion-col col-4 text-center>  
-					<span text-center (click)="viewRecord(result.id);"> &nbsp;&nbsp;<ion-icon name="eye"></ion-icon></span> 
+					<span text-center (click)="viewRecord(result.id);"> &nbsp;&nbsp;<ion-icon style="color:#fff" name="eye"></ion-icon></span> 
 				 </ion-col>
 				  <ion-col col-4> 
-				    <span item-center style="float: right"> <ion-icon name="arrow-up"></ion-icon></span> 
+				    <span item-center style="float: right" (click)="uploadData();"> <ion-icon style="color:#fff" name="arrow-up"></ion-icon></span> 
 				  </ion-col>
 				</ion-row>
 
@@ -50,6 +50,6 @@
 	    
 </div>
 	   <ion-fab top right edge color="light">
-           <button (click)="save()" ion-fab><ion-icon name="arrow-up"></ion-icon></button>
+           <button (click)="uploadData();" ion-fab><ion-icon name="arrow-up"></ion-icon></button>
       </ion-fab>
 </ion-content>

@@ -39,10 +39,21 @@ export class MembersPage {
 
   viewDatail(mobile_no)
   {
+    this.loadingShow();
   	this.navCtrl.push('ViewPage',{"mobile_no":mobile_no});
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad MembersPage');
+  }
+
+  loadingShow()
+  {
+    let loader = this.loadingCtrl.create({
+    content: "Please wait...",
+    duration: 3000,
+    dismissOnPageChange:true
+    });
+    loader.present();
   }
 
 }

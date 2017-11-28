@@ -5,11 +5,13 @@ page-upload {
     background-size:100% auto;
     .active
     {
-      background-color: #16AF54 !important;
+      background-color: #404156 !important;
+      border-radius: 10px;
+      color: #fff;
     }
     .inactive
     {
-      background-color: #ea878d !important;
+      background-color: #404156 !important;
     }
     ion-card{
 

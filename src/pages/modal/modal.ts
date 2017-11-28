@@ -88,12 +88,19 @@ submitAttempt: boolean = false;
 
           let controls = this.collect.controls;
            
+          let tdate =controls['fdate'].value;
+          tdate   = new Date(tdate).toLocaleString();
+            let d     = new Date(tdate).getDate();
+            let m     = new Date(tdate).getMonth();
+            let y     = new Date(tdate).getFullYear();
+            tdate     = y+'-'+m+'-'+d;
+          console.log(tdate);
           this.sqlite.create({
           name: 'data.db',
           location: 'default'
           })
           .then((db: SQLiteObject) => {
-           db.executeSql('INSERT INTO collection(name,mobile_no,amount,comment,ukey,date) VALUES(\''+controls['fname'].value+'\',\''+controls['fmobile'].value+'\',\''+controls['famount'].value+'\',\''+controls['fcomment'].value+'\',\'jbdjhbdffdg\',\''+controls['fdate'].value+'\')', [])
+           db.executeSql('INSERT INTO collection(name,mobile_no,amount,comment,ukey,date) VALUES(\''+controls['fname'].value+'\',\''+controls['fmobile'].value+'\',\''+controls['famount'].value+'\',\''+controls['fcomment'].value+'\',\'jbdjhbdffdg\',\''+tdate+'\')', [])
           .then(() =>this.savenexit())
           .catch(e => console.log(e));
            })
@@ -113,7 +120,7 @@ submitAttempt: boolean = false;
     savenexit()
     {
     	this.showMessage('Record added successfully...!', 'toastcontainer',50000);
-    	this.viewCtrl.dismiss();
+    	this.navCtrl.pop();
     }
 
 }
